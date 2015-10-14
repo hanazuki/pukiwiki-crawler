@@ -5,7 +5,6 @@ module Pkwk
         {start: $~[:start], end: $~[:end], content: format(snd)} if fst =~ RE_ANNOUNCE
       end.compact
 
-      p announces
       {announces: announces}
     end
 
