@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+$:.unshift(File.expand_path('../lib', __dir__))
+
+require 'pkwk'
+
+wiki = Pkwk::Pukiwiki.new('/home/www/inside/pukiwiki/wiki', 'https://inside.kmc.gr.jp/pukiwiki/', 'euc-jp-ms')
+
+cache_dir = File.expand_path('../cache', __dir__)
+
+crawler = Pkwk::Crawler.new(wiki)
+crawler << schedule = Pkwk::ScheduleCollector.new(File.join(cache_dir, 'schedule.yml'))
+crawler << announce = Pkwk::AnnounceCollector.new(File.join(cache_dir, 'announce.yml'))
+
+crawler.crawl
+
+schedule.save
+announce.save
